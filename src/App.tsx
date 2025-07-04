@@ -63,10 +63,10 @@ function App() {
         <h1 className="font-bold text-2xl">BPM Tapper</h1>
         <button
           onClick={resetBpm}
-          className="flex h-10 gap-2 justify-center items-center rounded-lg bg-zinc-100 p-3 cursor-pointer hover:bg-zinc-200 transition"
+          className="flex h-10 gap-1.5 justify-center items-center rounded-lg bg-zinc-100 p-4 cursor-pointer hover:bg-zinc-200 transition"
         >
+          <RotateCcw width={16} strokeWidth={2.5} />
           <span className="font-medium">Reset</span>
-          <RotateCcw width={18} strokeWidth={2.5} />
         </button>
       </div>
       <div className="flex bg-white h-full w-full justify-center items-center">
