@@ -60,7 +60,9 @@ function App() {
   return (
     <div className="flex flex-col gap-8 h-full w-full lg:p-12 p-6">
       <div className="flex w-full items-center justify-between">
-        <h1 className="font-bold text-2xl">BPM Tapper</h1>
+        <a href="/" className="font-bold text-2xl">
+          BPM Tapper
+        </a>
         <button
           onClick={resetBpm}
           className="flex h-10 gap-1.5 justify-center items-center rounded-lg bg-zinc-100 p-4 cursor-pointer hover:bg-zinc-200 transition"
