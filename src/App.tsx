@@ -1,14 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 function App() {
   const [tapTimes, setTapTimes] = useState<number[]>([]);
   const [bpm, setBpm] = useState(0);
+  const timeoutRef = useRef<number | null>(null);
+
+  const resetBpm = () => {
+    setTapTimes([]);
+    setBpm(0);
+  };
 
   const handleTap = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+
     const now = Date.now();
     const newTapTimes = [...tapTimes, now];
 
-    // Only keep the last 10 taps for calculation
     const filteredTaps = newTapTimes.slice(-10);
     setTapTimes(filteredTaps);
 
@@ -21,7 +30,17 @@ function App() {
       const calculatedBpm = Math.round(60000 / avgInterval);
       setBpm(calculatedBpm);
     }
+
+    timeoutRef.current = window.setTimeout(resetBpm, 3000);
   };
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
 
   return (
     <div className="flex flex-col gap-4 h-full w-full p-12">
