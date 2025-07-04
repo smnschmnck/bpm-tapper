@@ -58,7 +58,7 @@ function App() {
   }, [handleTap]);
 
   return (
-    <div className="flex flex-col gap-4 h-full w-full p-12">
+    <div className="flex flex-col gap-8 h-full w-full lg:p-12 p-6">
       <div className="flex w-full items-center justify-between">
         <h1 className="font-bold text-2xl">BPM Tapper</h1>
         <button
