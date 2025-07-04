@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { RotateCcw } from "lucide-react";
 
 function App() {
   const [tapTimes, setTapTimes] = useState<number[]>([]);
@@ -10,7 +11,7 @@ function App() {
     setBpm(0);
   };
 
-  const handleTap = () => {
+  const handleTap = useCallback(() => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
@@ -32,7 +33,7 @@ function App() {
     }
 
     timeoutRef.current = window.setTimeout(resetBpm, 3000);
-  };
+  }, [tapTimes]);
 
   useEffect(() => {
     return () => {
@@ -42,9 +43,32 @@ function App() {
     };
   }, []);
 
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key.match(/^[a-zA-Z]$/)) {
+        handleTap();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handleTap]);
+
   return (
     <div className="flex flex-col gap-4 h-full w-full p-12">
-      <h1 className="font-bold text-2xl">BPM Tapper</h1>
+      <div className="flex w-full items-center justify-between">
+        <h1 className="font-bold text-2xl">BPM Tapper</h1>
+        <button
+          onClick={resetBpm}
+          className="flex h-10 gap-2 justify-center items-center rounded-lg bg-zinc-100 p-3 cursor-pointer hover:bg-zinc-200 transition"
+        >
+          <span className="font-medium">Reset</span>
+          <RotateCcw width={18} strokeWidth={2.5} />
+        </button>
+      </div>
       <div className="flex bg-white h-full w-full justify-center items-center">
         <button
           onClick={handleTap}
