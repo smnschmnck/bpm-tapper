@@ -71,7 +71,7 @@ function App() {
       </div>
       <div className="flex bg-white h-full w-full justify-center items-center">
         <button
-          onClick={handleTap}
+          onMouseDown={handleTap}
           className="flex h-full w-full justify-center items-center bg-blue-300 rounded-2xl active:bg-blue-400 transition cursor-pointer"
         >
           <span className="text-4xl font-bold text-blue-900">
